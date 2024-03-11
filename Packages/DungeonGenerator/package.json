@@ -1,0 +1,7 @@
+{
+  "name": "jp.xeon.rogue_like_dungeon_generator",
+  "version": "0.1.0",
+  "displayName": "RogueLikeDungeonGenerator",
+  "description": "\u30ed\u30fc\u30b0\u30e9\u30a4\u30af\u98a8\u306e\u30c0\u30f3\u30b8\u30e7\u30f3\u30b8\u30a7\u30cd\u30ec\u30fc\u30bf\u30d1\u30c3\u30b1\u30fc\u30b8",
+  "unity": "2022.3"
+}

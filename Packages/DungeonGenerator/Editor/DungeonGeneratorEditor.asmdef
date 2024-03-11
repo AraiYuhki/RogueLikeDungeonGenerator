@@ -1,0 +1,16 @@
+{
+    "name": "DungeonGeneratorEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6c58345668bfc254ab896eab68fc8365"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
