@@ -18,6 +18,8 @@ namespace Xeon.Dungeon
         private List<Room> rooms;
         [SerializeField]
         private List<Path> paths;
+        [SerializeField]
+        private Encyclopedia<Vector2Int, TileType> terrainData = new();
 
         public TileData[,] Map { get; private set; }
         public Vector2Int StairPosition { get => stairPosition; set => stairPosition = value; }
@@ -41,20 +43,31 @@ namespace Xeon.Dungeon
         private void Initialize(Vector2Int size, List<Room> roomList, List<Path> pathList, float weateringRate = 0.2f, params TileType[] wallTypes)
         {
             Map = new TileData[size.x, size.y];
+            terrainData.Clear();
             if (weateringRate > 0f)
             {
                 if (wallTypes.Length <= 0)
                     wallTypes = new TileType[] { TileType.Wall, TileType.Water, TileType.Hole };
                 var terrain = TerrainGenerator.Generate(size, weateringRate, wallTypes);
                 for (var x = 0; x < size.x; x++)
+                {
                     for (var y = 0; y < size.y; y++)
+                    {
                         Map[x, y] = new TileData() { Position = new Vector2Int(x, y), Type = terrain[x, y] };
+                        terrainData[new Vector2Int(x, y)] = terrain[x, y];
+                    }
+                }
             }
             else
             {
                 for (var x = 0; x < size.x; x++)
+                {
                     for (var y = 0; y < size.y; y++)
+                    {
                         Map[x, y] = new TileData() { Position = new Vector2Int(x, y), Type = TileType.Wall };
+                        terrainData[new Vector2Int(x, y)] = TileType.Wall;
+                    }
+                }
             }
             rooms = roomList;
             paths = pathList;
@@ -131,6 +144,7 @@ namespace Xeon.Dungeon
                     {
                         var tile = Map[position.x, position.y];
                         if (tile.Type == TileType.Room) continue;
+                        tile.Type = terrainData[position];
                         tile.IsDeleted = true;
                     }
                 }
