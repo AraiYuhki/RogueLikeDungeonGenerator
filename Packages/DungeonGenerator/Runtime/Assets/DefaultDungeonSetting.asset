@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0d81a37f7acad4a98f7ba33067e6c6, type: 3}
+  m_Name: DefaultDungeonSetting
+  m_EditorClassIdentifier: 
+  baseTileType: 2
+  pathTileType: 1
+  roomTileType: 0
+  tileSettings:
+  - type: 0
+    cost: 0
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - type: 1
+    cost: 0
+    color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+  - type: 2
+    cost: 99
+    color: {r: 0.031446517, g: 0.031446517, b: 0.031446517, a: 1}
+  - type: 3
+    cost: 99
+    color: {r: 0.031446517, g: 1, b: 1, a: 1}
+  - type: 4
+    cost: 99
+    color: {r: 1, g: 0, b: 0, a: 1}

@@ -13,16 +13,23 @@ namespace Xeon.Dungeon
     }
 
     [Serializable]
-    public class TileData
+    public class TileData : TileData<TileType>
+    {
+        public override bool IsWall => type == TileType.Wall;
+        public override bool IsRoom => type == TileType.Room;
+    }
+
+    [Serializable]
+    public class TileData<T> where T : Enum
     {
         [SerializeField]
-        private Vector2Int position;
+        protected Vector2Int position;
         [SerializeField]
-        private TileType type = TileType.Wall;
+        protected T type;
         [SerializeField]
-        private int id = -1;
+        protected int id = -1;
         [SerializeField]
-        private bool isDeleted = false;
+        protected bool isDeleted = false;
         /// <summary>
         /// 座標
         /// </summary>
@@ -30,7 +37,7 @@ namespace Xeon.Dungeon
         /// <summary>
         /// 部屋か？
         /// </summary>
-        public TileType Type { get => type; set => type = value; }
+        public T Type { get => type; set => type = value; }
 
         /// <summary>
         /// 削除済みのタイルか？
@@ -42,7 +49,7 @@ namespace Xeon.Dungeon
         /// </summary>
         public int Id { get => id; set => id = value; }
 
-        public bool IsWall => Type == TileType.Wall;
-        public bool IsRoom => Type == TileType.Room;
+        public virtual bool IsWall => false;
+        public virtual bool IsRoom => false;
     }
 }
