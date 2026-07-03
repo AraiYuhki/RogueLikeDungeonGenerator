@@ -1,8 +1,22 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Xeon.Dungeon
 {
+    /// <summary>
+    /// エリア分割全体で共有する状態
+    /// </summary>
+    internal class AreaContext
+    {
+        public int Count { get; set; } = 0;
+        public int MaxRoomNum { get; set; } = 3;
+        /// <summary>
+        /// 実行された分割の記録(分割されたエリア, 分割後の1つ目, 2つ目)
+        /// </summary>
+        public List<(RectInt parent, RectInt first, RectInt second)> SplitEvents { get; } = new();
+    }
+
     /// <summary>
     /// エリアを表すクラス
     /// </summary>
@@ -17,13 +31,13 @@ namespace Xeon.Dungeon
         private const int RoomSizeMin = 5;
         private const int AreaSizeMin = RoomSizeMin + 4;
 
-        public static int MaxRoomNum { get; set; } = 3;
-        public static int Count { get; set; } = 0;
         public int x { get; private set; }
         public int y { get; private set; }
         public int width { get; private set; }
         public int height { get; private set; }
+        public RectInt Rect => new RectInt(x, y, width, height);
         private Area[] child = new Area[2];
+        private AreaContext context;
         public Room Room { get; private set; }
         public int Id { get; private set; }
 
@@ -32,14 +46,15 @@ namespace Xeon.Dungeon
         /// </summary>
         private List<AdjacentData> adjacent;
 
-        public Area(int x, int y, int width, int height)
+        public Area(int x, int y, int width, int height, AreaContext context)
         {
             this.x = x;
             this.y = y;
             this.width = width;
             this.height = height;
-            Id = Count;
-            Count++;
+            this.context = context;
+            Id = context.Count;
+            context.Count++;
         }
 
         /// <summary>
@@ -48,35 +63,26 @@ namespace Xeon.Dungeon
         public void Split()
         {
             if (width < AreaSizeMin && height < AreaSizeMin) return;
-            if (Count > MaxRoomNum) return;
+            if (context.Count > context.MaxRoomNum) return;
 
             var horizontal = Random.Range(0, 2) == 1 && height >= AreaSizeMin * 2;
             if (horizontal)
             {
                 if (width < AreaSizeMin * 2) return;
                 var dividePoint = Random.Range(AreaSizeMin, width - AreaSizeMin);
-                child[0] = new Area(x, y, dividePoint, height);
-                child[1] = new Area(x + dividePoint, y, width - dividePoint, height);
+                child[0] = new Area(x, y, dividePoint, height, context);
+                child[1] = new Area(x + dividePoint, y, width - dividePoint, height, context);
             }
             else
             {
                 if (height < AreaSizeMin * 2) return;
                 var dividePoint = Random.Range(AreaSizeMin, height - AreaSizeMin);
-                child[0] = new Area(x, y, width, dividePoint);
-                child[1] = new Area(x, y + dividePoint, width, height - dividePoint);
+                child[0] = new Area(x, y, width, dividePoint, context);
+                child[1] = new Area(x, y + dividePoint, width, height - dividePoint, context);
             }
+            context.SplitEvents.Add((Rect, child[0].Rect, child[1].Rect));
             child[0].Split();
             child[1].Split();
-        }
-
-        /// <summary>
-        /// 再帰的にすべてのステータスを表示する
-        /// </summary>
-        public void RecursivePrintStatus()
-        {
-            if (child[0] == null && child[1] == null) return;
-            child[0]?.RecursivePrintStatus();
-            child[1]?.RecursivePrintStatus();
         }
 
         /// <summary>
@@ -116,7 +122,7 @@ namespace Xeon.Dungeon
         /// <summary>
         /// 再帰的に部屋を作成する
         /// </summary>
-        public void RecursiveCrateRoom()
+        public void RecursiveCreateRoom()
         {
             if (child[0] == null && child[1] == null)
             {
@@ -127,8 +133,8 @@ namespace Xeon.Dungeon
                 Room = new Room(Id, x, y, width, height);
                 return;
             }
-            child[0]?.RecursiveCrateRoom();
-            child[1]?.RecursiveCrateRoom();
+            child[0]?.RecursiveCreateRoom();
+            child[1]?.RecursiveCreateRoom();
         }
 
         /// <summary>
@@ -145,25 +151,23 @@ namespace Xeon.Dungeon
                 return;
             }
 
-            for (var index = 0; index < adjacent.Count; index++)
+            foreach (var data in adjacent)
             {
-                var toId = adjacent[index].area.Id;
-                if (Room.CheckPathBeing(toId))
+                var toArea = data.area;
+                if (Room.CheckPathBeing(toArea.Id))
                 {
-                    if (!adjacent[index].area.Room.CheckPathBeing(Id))
-                        Debug.Log($"エラー 片方の部屋にしか道が登録されていません！ fromArea:{Id} toArea:{toId}");
+                    if (!toArea.Room.CheckPathBeing(Id))
+                        Debug.LogError($"エラー 片方の部屋にしか道が登録されていません! fromArea:{Id} toArea:{toArea.Id}");
                     else
                         continue;
                 }
-                var fromRoom = Room;
-                var toRoom = adjacent[index].area.Room;
-                var path = adjacent[index].isHorizontal
-                    ? CreateHorizontalPath(pathIndex, index, toId, fromRoom, toRoom)
-                    : CreateVerticalPath(pathIndex, index, toId, fromRoom, toRoom);
+                var path = data.isHorizontal
+                    ? CreateHorizontalPath(pathIndex, toArea)
+                    : CreateVerticalPath(pathIndex, toArea);
                 pathIndex++;
 
-                fromRoom.AddPath(toId, path, path.From);
-                toRoom.AddPath(Id, path, path.To);
+                Room.AddPath(toArea.Id, path, path.From);
+                toArea.Room.AddPath(Id, path, path.To);
                 pathList.Add(path);
             }
         }
@@ -172,34 +176,36 @@ namespace Xeon.Dungeon
         /// 水平方向の通路作成
         /// </summary>
         /// <param name="pathIndex"></param>
-        /// <param name="index"></param>
-        /// <param name="toId"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
+        /// <param name="toArea"></param>
         /// <returns></returns>
-        private Path CreateHorizontalPath(int pathIndex, int index, int toId, Room from, Room to)
+        private Path CreateHorizontalPath(int pathIndex, Area toArea)
         {
             var path = new Path() { Id = pathIndex };
+            var from = Room;
+            var to = toArea.Room;
             var fromPosition = Vector2Int.zero;
             var toPosition = Vector2Int.zero;
+            int border;
 
-            if (x > adjacent[index].area.x)
+            if (x > toArea.x)
             {
                 fromPosition.x = from.x;
                 toPosition.x = to.x + to.width;
                 path.Dir = Direction.Left;
+                border = x;
             }
             else
             {
                 fromPosition.x = from.x + from.width;
                 toPosition.x = to.x;
                 path.Dir = Direction.Right;
+                border = x + width;
             }
 
-            fromPosition.y = Random.Range(from.y, from.y + from.height);
-            toPosition.y = Random.Range(to.y, to.y + to.height);
-            path.SetIds(Id, toId);
-            path.CreatePositionList(fromPosition, toPosition, this);
+            fromPosition.y = PickDoorPosition(from.y, from.height, GetUsedDoorPositions(from, fromPosition.x, isHorizontal: true));
+            toPosition.y = PickDoorPosition(to.y, to.height, GetUsedDoorPositions(to, toPosition.x, isHorizontal: true));
+            path.SetIds(Id, toArea.Id);
+            path.CreatePositionList(fromPosition, toPosition, PickBendPosition(border));
             return path;
         }
 
@@ -207,35 +213,71 @@ namespace Xeon.Dungeon
         /// 垂直方向の通路を作成する
         /// </summary>
         /// <param name="pathIndex"></param>
-        /// <param name="index"></param>
-        /// <param name="toId"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
+        /// <param name="toArea"></param>
         /// <returns></returns>
-        private Path CreateVerticalPath(int pathIndex, int index, int toId, Room from, Room to)
+        private Path CreateVerticalPath(int pathIndex, Area toArea)
         {
             var path = new Path() { Id = pathIndex };
+            var from = Room;
+            var to = toArea.Room;
             var fromPosition = Vector2Int.zero;
             var toPosition = Vector2Int.zero;
+            int border;
 
-            if (y > adjacent[index].area.y)
+            if (y > toArea.y)
             {
                 fromPosition.y = from.y;
                 toPosition.y = to.y + to.height;
                 path.Dir = Direction.Up;
+                border = y;
             }
             else
             {
                 fromPosition.y = from.y + from.height;
                 toPosition.y = to.y;
                 path.Dir = Direction.Down;
+                border = y + height;
             }
 
-            fromPosition.x = Random.Range(from.x, from.x + from.width);
-            toPosition.x = Random.Range(to.x, to.x + to.width);
-            path.SetIds(Id, toId);
-            path.CreatePositionList(fromPosition, toPosition, this);
+            fromPosition.x = PickDoorPosition(from.x, from.width, GetUsedDoorPositions(from, fromPosition.y, isHorizontal: false));
+            toPosition.x = PickDoorPosition(to.x, to.width, GetUsedDoorPositions(to, toPosition.y, isHorizontal: false));
+            path.SetIds(Id, toArea.Id);
+            path.CreatePositionList(fromPosition, toPosition, PickBendPosition(border));
             return path;
+        }
+
+        /// <summary>
+        /// 通路の折れ曲がり位置を選ぶ
+        /// 部屋はエリア境界から2タイル以上離れているため、境界±1の範囲なら他の部屋と干渉しない
+        /// </summary>
+        /// <param name="border">エリア境界の座標</param>
+        private static int PickBendPosition(int border) => Random.Range(border - 1, border + 2);
+
+        /// <summary>
+        /// 指定した部屋の縁で既に使われている出入口の座標を取得する
+        /// </summary>
+        /// <param name="room">対象の部屋</param>
+        /// <param name="edge">出入口がある縁の座標(水平通路ならX座標、垂直通路ならY座標)</param>
+        /// <param name="isHorizontal">水平方向の通路か</param>
+        private static IEnumerable<int> GetUsedDoorPositions(Room room, int edge, bool isHorizontal)
+        {
+            return isHorizontal
+                ? room.ConnectedPoint.Values.Where(point => point.x == edge).Select(point => point.y)
+                : room.ConnectedPoint.Values.Where(point => point.y == edge).Select(point => point.x);
+        }
+
+        /// <summary>
+        /// 使用済みの座標を避けて出入口の座標を選ぶ(空きがなければランダム)
+        /// </summary>
+        /// <param name="min">部屋の縁の開始座標</param>
+        /// <param name="length">部屋の縁の長さ</param>
+        /// <param name="used">使用済みの座標</param>
+        private static int PickDoorPosition(int min, int length, IEnumerable<int> used)
+        {
+            var candidates = Enumerable.Range(min, length).Except(used).ToList();
+            if (candidates.Count <= 0)
+                return Random.Range(min, min + length);
+            return candidates[Random.Range(0, candidates.Count)];
         }
 
         /// <summary>

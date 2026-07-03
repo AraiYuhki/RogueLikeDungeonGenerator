@@ -62,7 +62,7 @@ namespace Xeon.Utility
             catch (Exception e)
             {
                 Debug.LogError($"{value} : {self.Count()} : {e.Message}");
-                throw e;
+                throw;
             }
         }
 

@@ -73,7 +73,7 @@ namespace Xeon.Utility
             return true;
         }
 
-        private TileType[] GetArroundTile(int x, int y)
+        private TileType[] GetAroundTile(int x, int y)
         {
             var result = new List<TileType>();
             foreach (var offset in Offsets)
@@ -87,7 +87,7 @@ namespace Xeon.Utility
         private TileType GetNextTile(int x, int y)
         {
             var result = new Dictionary<TileType, int>();
-            foreach (var tile in GetArroundTile(x, y))
+            foreach (var tile in GetAroundTile(x, y))
             {
                 if (!result.ContainsKey(tile))
                     result.Add(tile, 0);

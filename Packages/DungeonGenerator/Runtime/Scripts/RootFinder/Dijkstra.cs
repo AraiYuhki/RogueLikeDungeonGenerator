@@ -99,7 +99,6 @@ namespace Xeon.RootFinder
                 return null;
             }
             result.Reverse();
-            Debug.Log(string.Join("->", result));
             return result;
         }
 
@@ -124,7 +123,7 @@ namespace Xeon.RootFinder
             points.Add(endPoint);
             var root = new List<Vector2Int>();
             var aStar = new AStar(floorData);
-            for (var index = 0; index < points.Count - 2; index++)
+            for (var index = 0; index < points.Count - 1; index++)
             {
                 var positions = aStar.FindRoot(points[index], points[index + 1]);
                 if (positions != null) root.AddRange(positions);
@@ -202,7 +201,6 @@ namespace Xeon.RootFinder
                 var nextScore = node.Score + node.ConnectedCosts[nextNode.Id];
                 if (nextNode.Score > nextScore)
                 {
-                    Debug.Log($"Update cost {nextNode.Id} {nextNode.Score} -> {nextScore}");
                     nextNode.Parent = node;
                     nextNode.Score = nextScore;
                 }

@@ -24,13 +24,13 @@ All runtime code lives in `Packages/DungeonGenerator/Runtime/Scripts/` under thr
 
 ### Generation pipeline
 
-Entry point is `DungeonGenerator.GenerateFloor(width, height, maxRoom, deletePathPercent, weatheringRate)`:
+Entry point is `DungeonGenerator.GenerateFloor(width, height, maxRoom, deletePathPercent, weatheringRate)`. `GenerateFloorSteps(...)` yields the same process as an `IEnumerable<GenerationStep>` (public snapshot class: label, area/room rects, corridor tiles, tile-map snapshot, final `FloorData`) so the editor tester can replay generation step by step; `GenerateFloor` just consumes it.
 
-1. **BSP split** — `Area` recursively splits the map into areas (static `Area.Count` / `Area.MaxRoomNum` control recursion; they are reset at the start of each generation — beware this static state).
-2. **Room creation** — each leaf `Area` creates one `Room` with margins.
-3. **Adjacency + paths** — areas build adjacency lists, then `Path` objects connect rooms of adjacent areas (horizontal/vertical corridors).
+1. **BSP split** — `Area` recursively splits the map into areas; shared counters live in an `AreaContext` instance (no static state).
+2. **Room creation** — each leaf `Area` creates one `Room` with a ≥2-tile margin from area borders. This margin is a load-bearing invariant: corridors bend within ±1 tile of an area border, and the margin guarantees such bends never cut through third-party rooms.
+3. **Adjacency + paths** — areas build adjacency lists, then `Path` objects connect rooms of adjacent areas. A corridor is a three-segment polyline: room door → bend line → target door. Bend positions are randomized within border±1 and door tiles avoid positions already used by other corridors of the same room, to keep corridors from overlapping.
 4. **`FloorData`** assembles the tile map (`TileData[,]`): base terrain comes from `TerrainGenerator` when `weatheringRate > 0` (mix of Wall/Water/Hole), and original terrain is stored in `terrainData` so deleted corridors can be restored to their pre-corridor tiles.
-5. **Path deletion** — `FloorData.DeletePath` randomly removes corridors, then uses `BackTracking.FindIsolatedRoom` to restore paths until no room is unreachable (retry cap of 100).
+5. **Path deletion** — `FloorData.DeletePathSteps` randomly removes corridors, then uses `BackTracking.FindIsolatedRoom` to restore paths until no room is unreachable (retry cap of 100). It yields a description per mutation (with the map re-applied) for stepwise playback; `DeletePath` drains it.
 
 `ApplyMap` layering order matters: deleted paths (restore terrain) → paths → rooms.
 

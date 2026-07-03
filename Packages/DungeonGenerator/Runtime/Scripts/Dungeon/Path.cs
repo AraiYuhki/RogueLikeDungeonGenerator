@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -80,132 +80,54 @@ namespace Xeon.Dungeon
         }
 
         /// <summary>
-        /// 境界の座標を取得する
-        /// </summary>
-        /// <param name="fromArea"></param>
-        /// <returns></returns>
-        /// <exception cref="Exception"></exception>
-        private int GetBorderPosition(Area fromArea)
-        {
-            switch (Dir)
-            {
-                case Direction.Up:
-                    return fromArea.y;
-                case Direction.Down:
-                    return fromArea.y + fromArea.height;
-                case Direction.Left:
-                    return fromArea.x;
-                case Direction.Right:
-                    return fromArea.x + fromArea.width;
-                default:
-                    throw new Exception($"{Dir}は未定義です");
-            }
-        }
-
-        /// <summary>
         /// 座標リストを作成する
+        /// 出発点から折れ曲がり位置まで直進し、折れ曲がり位置で軸を変えて目的地まで進む
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="fromArea"></param>
-        public void CreatePositionList(Vector2Int from, Vector2Int to, Area fromArea)
+        /// <param name="from">出発点(出発側の部屋の縁)</param>
+        /// <param name="to">目的地(接続先の部屋の縁)</param>
+        /// <param name="bendPosition">折れ曲がり位置(垂直通路ならY座標、水平通路ならX座標)</param>
+        public void CreatePositionList(Vector2Int from, Vector2Int to, int bendPosition)
         {
             this.from = from;
             this.to = to;
-
-            var borderPosition = GetBorderPosition(fromArea);
-            var fromPosition = Vector2Int.zero;
-            var toPosition = Vector2Int.zero;
-
-            fromPosition.x = Mathf.Min(From.x, To.x);
-            fromPosition.y = Mathf.Min(From.y, To.y);
-
-            toPosition.x = Mathf.Max(From.x, To.x);
-            toPosition.y = Mathf.Max(From.y, To.y);
-
             pathPositionList = new();
+
             if (Dir == Direction.Up || Dir == Direction.Down)
-                CreatePositionListVertical(borderPosition);
+            {
+                AddVerticalSegment(from.x, from.y, bendPosition);
+                AddHorizontalSegment(bendPosition, from.x, to.x);
+                AddVerticalSegment(to.x, bendPosition, to.y, includeEnd: true);
+            }
             else
-                CreatePositionListHorizontal(borderPosition);
-        }
-
-        /// <summary>
-        /// 垂直方向の座標リストを作成する
-        /// </summary>
-        /// <param name="borderPosition"></param>
-        private void CreatePositionListVertical(int borderPosition)
-        {
-            var x = From.x;
-            if (From.y < To.y)
             {
-                for (int y = From.y; y <= To.y; y++)
-                {
-                    if (y == borderPosition) CreatePositionListHorizontal(ref x, y);
-                    PathPositionList.Add(new Vector2Int(x, y));
-                }
-                return;
-            }
-
-            for (var y = From.y; y >= To.y; y--)
-            {
-                if (y == borderPosition) CreatePositionListHorizontal(ref x, y);
-                PathPositionList.Add(new Vector2Int(x, y));
+                AddHorizontalSegment(from.y, from.x, bendPosition);
+                AddVerticalSegment(bendPosition, from.y, to.y);
+                AddHorizontalSegment(to.y, bendPosition, to.x, includeEnd: true);
             }
         }
 
         /// <summary>
-        /// 垂直方向の座標リストを作成する
+        /// 水平方向のセグメントを追加する(始点を含み、includeEnd指定時のみ終点を含む)
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        private void CreatePositionListVertical(int x, ref int y)
+        private void AddHorizontalSegment(int y, int fromX, int toX, bool includeEnd = false)
         {
-            if (From.y < To.y)
-            {
-                for (y = From.y; y < To.y; y++) PathPositionList.Add(new Vector2Int(x, y));
-                return;
-            }
-            for (y = From.y; y > To.y; y--) PathPositionList.Add(new Vector2Int(x, y));
+            var step = toX >= fromX ? 1 : -1;
+            for (var x = fromX; x != toX; x += step)
+                pathPositionList.Add(new Vector2Int(x, y));
+            if (includeEnd)
+                pathPositionList.Add(new Vector2Int(toX, y));
         }
 
         /// <summary>
-        /// 水平方向の座標リストを作成する
+        /// 垂直方向のセグメントを追加する(始点を含み、includeEnd指定時のみ終点を含む)
         /// </summary>
-        /// <param name="borderPosition"></param>
-        private void CreatePositionListHorizontal(int borderPosition)
+        private void AddVerticalSegment(int x, int fromY, int toY, bool includeEnd = false)
         {
-            var y = From.y;
-            if (From.x < To.x)
-            {
-                for (var x = From.x; x <= To.x; x++)
-                {
-                    if (x == borderPosition) CreatePositionListVertical(x, ref y);
-                    PathPositionList.Add(new Vector2Int(x, y));
-                }
-                return;
-            }
-
-            for (var x = From.x; x >= To.x; x--)
-            {
-                if (x == borderPosition) CreatePositionListVertical(x, ref y);
-                PathPositionList.Add(new Vector2Int(x, y));
-            }
-        }
-
-        /// <summary>
-        /// 水平方向の座標リストを作成する
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        private void CreatePositionListHorizontal(ref int x, int y)
-        {
-            if (From.x < To.x)
-            {
-                for (x = From.x; x < To.x; x++) PathPositionList.Add(new Vector2Int(x, y));
-                return;
-            }
-            for (x = From.x; x > To.x; x--) PathPositionList.Add(new Vector2Int(x, y));
+            var step = toY >= fromY ? 1 : -1;
+            for (var y = fromY; y != toY; y += step)
+                pathPositionList.Add(new Vector2Int(x, y));
+            if (includeEnd)
+                pathPositionList.Add(new Vector2Int(x, toY));
         }
     }
 }

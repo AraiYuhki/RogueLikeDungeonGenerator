@@ -37,18 +37,18 @@ namespace Xeon.Dungeon
 
         internal FloorData() { }
 
-        internal FloorData(int width, int height, List<Room> roomList, List<Path> pathList, float weateringRate = 0.2f, params TileType[] wallTypes)
-            => Initialize(new Vector2Int(width, height), roomList, pathList, weateringRate, wallTypes);
+        internal FloorData(int width, int height, List<Room> roomList, List<Path> pathList, float weatheringRate = 0.2f, params TileType[] wallTypes)
+            => Initialize(new Vector2Int(width, height), roomList, pathList, weatheringRate, wallTypes);
 
-        private void Initialize(Vector2Int size, List<Room> roomList, List<Path> pathList, float weateringRate = 0.2f, params TileType[] wallTypes)
+        private void Initialize(Vector2Int size, List<Room> roomList, List<Path> pathList, float weatheringRate = 0.2f, params TileType[] wallTypes)
         {
             Map = new TileData[size.x, size.y];
             terrainData.Clear();
-            if (weateringRate > 0f)
+            if (weatheringRate > 0f)
             {
                 if (wallTypes.Length <= 0)
                     wallTypes = new TileType[] { TileType.Wall, TileType.Water, TileType.Hole };
-                var terrain = TerrainGenerator.Generate(size, weateringRate, wallTypes);
+                var terrain = TerrainGenerator.Generate(size, weatheringRate, wallTypes);
                 for (var x = 0; x < size.x; x++)
                 {
                     for (var y = 0; y < size.y; y++)
@@ -81,54 +81,64 @@ namespace Xeon.Dungeon
 
         public void DeletePath(float deletePercent)
         {
+            foreach (var _ in DeletePathSteps(deletePercent)) { }
+        }
+
+        /// <summary>
+        /// 通路の削除・復元を1件ずつ実行する
+        /// 各要素を列挙した時点でマップに反映済みの状態になる
+        /// </summary>
+        /// <param name="deletePercent">通路の削除率</param>
+        /// <returns>実行した操作の説明と、操作対象の通路のタイル座標</returns>
+        internal IEnumerable<(string Label, List<Vector2Int> ChangedTiles)> DeletePathSteps(float deletePercent)
+        {
             var deletedPath = new List<Path>();
+            DeletedPaths = deletedPath;
             foreach (var room in rooms.Where(room => room.ConnectedRooms.Count > 1))
             {
                 foreach (var next in room.ConnectedRooms.ToList())
                 {
-                    var nextRoom = rooms.First(room => room.Id == next);
+                    var nextRoom = rooms.First(other => other.Id == next);
                     if (room.ConnectedRooms.Count <= 1 || nextRoom.ConnectedRooms.Count <= 1) continue;
-                    var random = UnityEngine.Random.Range(0f, 1f);
-                    if (random > deletePercent) continue;
-                    room.RemovePath(next);
-                    nextRoom.RemovePath(room.Id);
+                    if (UnityEngine.Random.Range(0f, 1f) > deletePercent) continue;
                     var target = paths.FirstOrDefault(path
                         => (path.FromRoomId == room.Id && path.ToRoomId == next)
                         || (path.FromRoomId == next && path.ToRoomId == room.Id));
+                    if (target == null) continue;
+                    room.RemovePath(next);
+                    nextRoom.RemovePath(room.Id);
                     paths.Remove(target);
                     deletedPath.Add(target);
-                    Debug.Log($"delete path {room.Id} -> {next}");
+                    ApplyMap();
+                    yield return ($"通路削除 部屋{room.Id} -> 部屋{next}", target.PathPositionList.ToList());
                 }
             }
-            var closedRooms = new List<Room>();
             var retryCount = 0;
             while (true)
             {
-                closedRooms = BackTracking.FindIsolatedRoom(rooms, paths);
+                var closedRooms = BackTracking.FindIsolatedRoom(rooms, paths);
                 if (closedRooms == null) break;
                 foreach (var room in closedRooms)
                 {
                     var target = deletedPath.FirstOrDefault(path => path.FromRoomId == room.Id || path.ToRoomId == room.Id);
-                    if (target != null)
-                    {
-                        var from = rooms.First(room => room.Id == target.FromRoomId);
-                        var to = rooms.First(room => room.Id == target.ToRoomId);
-                        from.AddPath(to.Id, target, target.From);
-                        to.AddPath(from.Id, target, target.To);
-                        paths.Add(target);
-                        deletedPath.Remove(target);
-                        Debug.Log($"restore path {target.FromRoomId} -> {target.ToRoomId}");
-                        break;
-                    }
+                    if (target == null) continue;
+                    var from = rooms.First(other => other.Id == target.FromRoomId);
+                    var to = rooms.First(other => other.Id == target.ToRoomId);
+                    from.AddPath(to.Id, target, target.From);
+                    to.AddPath(from.Id, target, target.To);
+                    paths.Add(target);
+                    deletedPath.Remove(target);
+                    ApplyMap();
+                    yield return ($"通路復元 部屋{target.FromRoomId} -> 部屋{target.ToRoomId}", target.PathPositionList.ToList());
+                    break;
                 }
                 retryCount++;
                 if (retryCount >= 100)
                 {
-                    Debug.LogError("Over retry counts");
+                    Debug.LogError("通路の復元回数が上限を超えました");
                     break;
                 }
             }
-            DeletedPaths = deletedPath;
             ApplyMap();
         }
 
@@ -137,9 +147,8 @@ namespace Xeon.Dungeon
             // 削除した通路の適用
             if (DeletedPaths != null)
             {
-                foreach (var path in DeletedPaths.Where(path => path != null))
+                foreach (var path in DeletedPaths)
                 {
-                    Debug.Log($"deleted path {path.FromRoomId} -> {path.ToRoomId}");
                     foreach (var position in path.PathPositionList)
                     {
                         var tile = Map[position.x, position.y];
@@ -158,6 +167,7 @@ namespace Xeon.Dungeon
                     Map[position.x, position.y].Position = position;
                     Map[position.x, position.y].Type = TileType.Path;
                     Map[position.x, position.y].Id = path.Id;
+                    Map[position.x, position.y].IsDeleted = false;
                 }
             }
 
