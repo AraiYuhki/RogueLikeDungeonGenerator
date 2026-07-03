@@ -202,8 +202,9 @@ namespace Xeon.Dungeon
                 border = x + width;
             }
 
-            fromPosition.y = PickDoorPosition(from.y, from.height, GetUsedDoorPositions(from, fromPosition.x, isHorizontal: true));
-            toPosition.y = PickDoorPosition(to.y, to.height, GetUsedDoorPositions(to, toPosition.x, isHorizontal: true));
+            (fromPosition.y, toPosition.y) = PickDoorPositions(
+                from.y, from.height, GetUsedDoorPositions(from, fromPosition.x, isHorizontal: true),
+                to.y, to.height, GetUsedDoorPositions(to, toPosition.x, isHorizontal: true));
             path.SetIds(Id, toArea.Id);
             path.CreatePositionList(fromPosition, toPosition, PickBendPosition(border));
             return path;
@@ -239,8 +240,9 @@ namespace Xeon.Dungeon
                 border = y + height;
             }
 
-            fromPosition.x = PickDoorPosition(from.x, from.width, GetUsedDoorPositions(from, fromPosition.y, isHorizontal: false));
-            toPosition.x = PickDoorPosition(to.x, to.width, GetUsedDoorPositions(to, toPosition.y, isHorizontal: false));
+            (fromPosition.x, toPosition.x) = PickDoorPositions(
+                from.x, from.width, GetUsedDoorPositions(from, fromPosition.y, isHorizontal: false),
+                to.x, to.width, GetUsedDoorPositions(to, toPosition.y, isHorizontal: false));
             path.SetIds(Id, toArea.Id);
             path.CreatePositionList(fromPosition, toPosition, PickBendPosition(border));
             return path;
@@ -267,17 +269,52 @@ namespace Xeon.Dungeon
         }
 
         /// <summary>
-        /// 使用済みの座標を避けて出入口の座標を選ぶ(空きがなければランダム)
+        /// 通路の両端の出入口座標を選ぶ
+        /// 部屋同士の縁の範囲が重なっている場合は同じ座標を選んで通路を直線にし、
+        /// 重なっていない場合は互いに最も近い座標を選ぶことで通路同士の交差を防ぐ
+        /// </summary>
+        /// <param name="fromMin">接続元の部屋の縁の開始座標</param>
+        /// <param name="fromLength">接続元の部屋の縁の長さ</param>
+        /// <param name="fromUsed">接続元の縁で使用済みの座標</param>
+        /// <param name="toMin">接続先の部屋の縁の開始座標</param>
+        /// <param name="toLength">接続先の部屋の縁の長さ</param>
+        /// <param name="toUsed">接続先の縁で使用済みの座標</param>
+        private static (int fromPosition, int toPosition) PickDoorPositions(
+            int fromMin, int fromLength, IEnumerable<int> fromUsed,
+            int toMin, int toLength, IEnumerable<int> toUsed)
+        {
+            var overlapMin = Mathf.Max(fromMin, toMin);
+            var overlapMax = Mathf.Min(fromMin + fromLength, toMin + toLength);
+            if (overlapMin < overlapMax)
+            {
+                var candidates = Enumerable.Range(overlapMin, overlapMax - overlapMin)
+                    .Except(fromUsed).Except(toUsed).ToList();
+                if (candidates.Count > 0)
+                {
+                    var position = candidates[Random.Range(0, candidates.Count)];
+                    return (position, position);
+                }
+            }
+            // 重なりがない、または重なりに空きがない場合は相手に最も近い空き座標を選ぶ
+            var toCenter = toMin + toLength / 2;
+            var fromPosition = PickNearestDoorPosition(fromMin, fromLength, fromUsed, toCenter);
+            var toPosition = PickNearestDoorPosition(toMin, toLength, toUsed, fromPosition);
+            return (fromPosition, toPosition);
+        }
+
+        /// <summary>
+        /// 理想の座標に最も近い未使用の出入口座標を選ぶ(空きがなければ理想の座標を縁の範囲に丸めて返す)
         /// </summary>
         /// <param name="min">部屋の縁の開始座標</param>
         /// <param name="length">部屋の縁の長さ</param>
         /// <param name="used">使用済みの座標</param>
-        private static int PickDoorPosition(int min, int length, IEnumerable<int> used)
+        /// <param name="ideal">理想の座標(接続先に最も近い位置)</param>
+        private static int PickNearestDoorPosition(int min, int length, IEnumerable<int> used, int ideal)
         {
+            var clamped = Mathf.Clamp(ideal, min, min + length - 1);
             var candidates = Enumerable.Range(min, length).Except(used).ToList();
-            if (candidates.Count <= 0)
-                return Random.Range(min, min + length);
-            return candidates[Random.Range(0, candidates.Count)];
+            if (candidates.Count <= 0) return clamped;
+            return candidates.OrderBy(position => Mathf.Abs(position - clamped)).First();
         }
 
         /// <summary>
