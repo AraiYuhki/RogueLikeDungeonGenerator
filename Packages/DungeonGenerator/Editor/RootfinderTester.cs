@@ -33,6 +33,10 @@ public class RootfinderTester : EditorWindow
 
     private Dijkstra dijkstra;
 
+    private bool jpsAllowDiagonal = true;
+    private bool jpsPreventCornerCutting = true;
+    private bool jpsPathOnly = false;
+
     [MenuItem("Debug/DungeonGenerator/経路探索テスト")]
     public static void Open() => GetWindow<RootfinderTester>("経路探索テスト");
 
@@ -68,14 +72,23 @@ public class RootfinderTester : EditorWindow
         using (new EditorGUILayout.HorizontalScope())
         {
             startPoint = EditorGUILayout.Vector2IntField("開始地点", startPoint);
-            endPoint = EditorGUILayout.Vector2IntField("終了地点", endPoint);;
+            endPoint = EditorGUILayout.Vector2IntField("終了地点", endPoint);
         }
 
         using (new EditorGUILayout.HorizontalScope())
         {
             if (GUILayout.Button("チェックポイントリスト作成"))
                 CreateCheckPointList(startPoint, endPoint);
+            if (GUILayout.Button("JPSで経路探索"))
+                CreateJpsRoot(startPoint, endPoint);
             if (GUILayout.Button("ルートを破棄")) root.Clear();
+        }
+
+        using (new EditorGUILayout.HorizontalScope())
+        {
+            jpsAllowDiagonal = EditorGUILayout.Toggle("JPS: 斜め移動", jpsAllowDiagonal);
+            jpsPreventCornerCutting = EditorGUILayout.Toggle("JPS: 角抜け禁止", jpsPreventCornerCutting);
+            jpsPathOnly = EditorGUILayout.Toggle("JPS: 通路のみ", jpsPathOnly);
         }
 
         using (new EditorGUILayout.HorizontalScope())
@@ -177,6 +190,27 @@ public class RootfinderTester : EditorWindow
         var rootFinder = new Dijkstra(floorData);
         root = rootFinder.GetCheckpoints(startPosition, endPosition);
         root = rootFinder.GetRoot(startPosition, endPosition, root);
+    }
+
+    private void CreateJpsRoot(Vector2Int startPosition, Vector2Int endPosition)
+    {
+        var options = new JpsSearchOptions
+        {
+            AllowDiagonal = jpsAllowDiagonal,
+            PreventCornerCutting = jpsPreventCornerCutting,
+        };
+
+        if (jpsPathOnly)
+        {
+            options.MovementRule = (floor, from, to) =>
+            {
+                var tile = floor.GetTile(to.x, to.y);
+                return tile != null && (tile.Type == TileType.Path || tile.Type == TileType.Room);
+            };
+        }
+
+        var rootFinder = new Jps(floorData);
+        root = rootFinder.FindPath(startPosition, endPosition, options);
     }
 
     private Color NodeColor(TileData tile)
