@@ -1,13 +1,13 @@
 {
   "5e2e813561d69f6f12e3a196f984266661f24205": {
-    "executedAt": "2026-10-04T12:18:00.4617553+09:00",
-    "isSuccess": false,
+    "executedAt": "2026-10-07T14:25:43.5695356+09:00",
+    "isSuccess": true,
     "logDirectoryPath": "D:\\Projects\\RogueLikeDungeon\\.sebastian-ci\\logs\\5e2e813561d69f6f12e3a196f984266661f24205",
     "jobs": [
       {
         "jobId": "build",
-        "status": "Failed",
-        "durationSeconds": 0.2,
+        "status": "Success",
+        "durationSeconds": 405.9,
         "tests": null
       }
     ]

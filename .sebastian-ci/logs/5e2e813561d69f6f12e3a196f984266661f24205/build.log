@@ -1,0 +1,32 @@
+[2026-10-07 14:18:58][INFO] === ****: Unity **** への対応を開始 ===
+[2026-10-07 14:18:58][INFO] ****: ビルド試行 1/5
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 280296)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 270276)
+VBCSCompiler prewarm took 17.71 ms
+[2026-10-07 14:25:24][INFO] ****: ビルド成功（試行 1）
+[2026-10-07 14:25:24][INFO] ****: package.json を 0.1.0 -> 0.2.0 に更新
+warning: in the working copy of 'Packages/manifest.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Packages/packages-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ProjectSettings/ProjectVersion.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.sebastian-ci.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.vscode/extensions.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.vscode/launch.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.vscode/settings.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Assets/Editor.meta', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Assets/Editor/Ci.meta', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Assets/Editor/Ci/CompileCheck.cs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Assets/Editor/Ci/CompileCheck.cs.meta', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'CHANGELOG.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ProjectSettings/ProjectAuditorSettings.asset', LF will be replaced by CRLF the next time Git touches it
+remote: Bypassed rule violations for refs/heads/master:        
+remote: 
+remote: - Changes must be made through a pull request.        
+remote: 
+To github.com:AraiYuhki/****.git
+   5e2e813..b13dcbb  master -> master
+To github.com:AraiYuhki/****.git
+ * [new tag]         v0.2.0 -> v0.2.0
+https://github.com/AraiYuhki/****/releases/tag/v0.2.0
+[2026-10-07 14:25:43][INFO] ****: リリース v0.2.0 を作成しました
+[2026-10-07 14:25:43][INFO] === ****: 完了 ===
