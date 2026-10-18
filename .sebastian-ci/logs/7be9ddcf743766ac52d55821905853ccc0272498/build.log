@@ -1,0 +1,31 @@
+[2026-10-18 14:34:11][INFO] === ****: Unity **** への対応を開始 ===
+[2026-10-18 14:34:11][INFO] ****: [Latest] Unity **** ビルド試行 1/5
+[2026-10-18 14:34:11][INFO] Unity **** でビルド確認を開始: D:\Projects\RogueLikeDungeon
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 24336)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 28492)
+VBCSCompiler prewarm took 23.66 ms
+[2026-10-18 14:34:41][INFO] Unity **** 実行中… 経過 00:00:30 |   com.unity.timeline from version 1.8.6 to 6.6.0
+[2026-10-18 14:35:11][INFO] Unity **** 実行中… 経過 00:01:00 |   com.unity.timeline from version 1.8.6 to 6.6.0
+[2026-10-18 14:35:41][INFO] Unity **** 実行中… 経過 00:01:30 |   com.unity.timeline from version 1.8.6 to 6.6.0
+[2026-10-18 14:36:11][INFO] Unity **** 実行中… 経過 00:02:00 |   com.unity.timeline from version 1.8.6 to 6.6.0
+[2026-10-18 14:36:41][INFO] Unity **** 実行中… 経過 00:02:30 |   com.unity.timeline from version 1.8.6 to 6.6.0
+[2026-10-18 14:37:11][INFO] Unity **** 実行中… 経過 00:03:00 |   com.unity.timeline from version 1.8.6 to 6.6.0
+[2026-10-18 14:37:41][INFO] Unity **** 実行中… 経過 00:03:30 | Directory monitor buffer overflow for 'Packages'Next Refresh will do full enumeration.
+[2026-10-18 14:38:11][INFO] Unity **** 実行中… 経過 00:04:00 | Clearing Bee directory 'Library/Bee', since bee backend hash ('Library/Bee/bee_backend.info') is different, previous hash was d8d8df7b24f10237c11f963ebb2d7d0666…
+[2026-10-18 14:38:41][INFO] Unity **** 実行中… 経過 00:04:30 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-18 14:39:11][INFO] Unity **** 実行中… 経過 00:05:00 | 		AwakeInstancesAfterBackupRestoration (30ms)
+[2026-10-18 14:39:42][INFO] Unity **** 実行中… 経過 00:05:30 | Imported 'GUID: 72a3c6132d5e2ae48a1df56cfebbc7c2' -> (Import Result ID: 'b46bce05c581d47dc1703ccd6ed5336c') in 0.022 seconds [static and dynamic dependencies]. …
+[2026-10-18 14:40:12][INFO] Unity **** 実行中… 経過 00:06:00 | Imported 'GUID: 25096ce515c063c48a2bd6b108c95912' -> (Import Result ID: 'e81a4fd2699ba092c32c654114f00427') in 0.072 seconds [static and dynamic dependencies]. …
+[2026-10-18 14:40:42][INFO] Unity **** 実行中… 経過 00:06:30 | Importing 'GUID: 29f90cd6202745c448e74a1398b1c731 - Path: Packages/com.unity.2d.animation/Editor/Assets/EditorIcons/Selected/Split Bones@3x.png' with importer (…
+[2026-10-18 14:41:12][INFO] Unity **** 実行中… 経過 00:07:00 | Imported 'GUID: 3d9fb59c1fa00406ab971588842aa368' -> (Import Result ID: '4cfe32c757d9882b3907702da128c0e2') in 0.082 seconds [static and dynamic dependencies]. …
+[2026-10-18 14:41:42][INFO] Unity **** 実行中… 経過 00:07:30 | Importing 'GUID: 508137d46fc4f48929786b113175a254 - Path: Packages/com.unity.2d.animation/Editor/Assets/SpriteLibraryEditor/LabelsTab.uss' with importer (Script…
+[2026-10-18 14:42:12][INFO] Unity **** 実行中… 経過 00:08:00 | Directory monitor buffer overflow for 'Packages'Next Refresh will do full enumeration.Directory monitor buffer overflow for 'Packages'Next Refresh will do full …
+[2026-10-18 14:42:42][INFO] Unity **** 実行中… 経過 00:08:30 | (Filename: Assets/Scripts/Editor/ScriptImportPostProcessor.cs Line: 36)
+[2026-10-18 14:43:12][INFO] Unity **** 実行中… 経過 00:09:01 | 	Packages/com.unity.timeline/Editor/StyleSheets/Extensions/common.uss
+[2026-10-18 14:43:19][INFO] Unity **** のビルド確認が終了しました (exit=0)
+[2026-10-18 14:43:19][INFO] ****: [Latest] ビルド成功（試行 1）
+[2026-10-18 14:43:19][INFO] ****: 最低対応バージョン 6000.0.0f1 でも後方互換性チェックを行います
+[2026-10-18 14:43:19][INFO] Unity 6000.0.0f1 は既にインストール済み
+[2026-10-18 14:43:19][INFO] ****: [MinSupported] Unity 6000.0.0f1 ビルド試行 1/5
+[2026-10-18 14:43:19][INFO] Unity 6000.0.0f1 でビルド確認を開始: D:\Projects\RogueLikeDungeon
+[2026-10-18 14:43:49][INFO] Unity 6000.0.0f1 実行中… 経過 00:00:30 | [Licensing::Client] Suc

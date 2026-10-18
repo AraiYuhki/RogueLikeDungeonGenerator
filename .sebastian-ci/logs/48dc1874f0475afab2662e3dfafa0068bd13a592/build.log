@@ -30,4 +30,53 @@ VBCSCompiler prewarm took 16.99 ms
 [2026-10-12 16:54:44][INFO] Unity 6000.0.0f1 実行中… 経過 00:01:00 | [Licensing::Client] Successfully resolved entitlements
 [2026-10-12 16:55:14][INFO] Unity 6000.0.0f1 実行中… 経過 00:01:30 | [Licensing::Client] Successfully resolved entitlements
 [2026-10-12 16:55:44][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:00 | [Licensing::Client] Successfully resolved entitlements
-[2026-10-12 16:56:14][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:30 | [Licensing::Client] Successfully
+[2026-10-12 16:56:14][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-12 16:56:44][INFO] Unity 6000.0.0f1 実行中… 経過 00:03:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-12 16:57:14][INFO] Unity 6000.0.0f1 実行中… 経過 00:03:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-12 16:57:44][INFO] Unity 6000.0.0f1 実行中… 経過 00:04:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-12 16:58:14][INFO] Unity 6000.0.0f1 実行中… 経過 00:04:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-12 16:58:44][INFO] Unity 6000.0.0f1 実行中… 経過 00:05:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-12 16:59:14][INFO] Unity 6000.0.0f1 実行中… 経過 00:05:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-12 16:59:44][INFO] Unity 6000.0.0f1 実行中… 経過 00:06:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-12 17:00:14][INFO] Unity 6000.0.0f1 実行中… 経過 00:06:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-12 17:00:49][INFO] Unity 6000.0.0f1 実行中… 経過 00:07:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-12 17:00:52][INFO] Unity 6000.0.0f1 のビルド確認が終了しました (exit=1)
+[2026-10-12 17:00:52][WARN] ****: [MinSupported] ビルド失敗（試行 1）
+[2026-10-12 17:00:52][INFO] Claude Code (Opus) による自動修正を実行中… (試行 1/5)
+[2026-10-12 17:01:23][INFO] Claude(Opus) 実行中… 経過 00:00:30
+[2026-10-12 17:01:53][INFO] Claude(Opus) 実行中… 経過 00:01:00
+[2026-10-12 17:02:23][INFO] Claude(Opus) 実行中… 経過 00:01:30
+[2026-10-12 17:02:48][INFO] Claude Code の自動修正が終了しました (exit=0)
+  [Claude] 最終出力:
+**Things to watch:**
+- `Packages/packages-lock.json`, `ProjectVersion.txt` and the `.sebastian-ci/` logs were already modified by the CI run, and I left them out of the commit. Unity rebuilds the lock file from the manifest.
+- The 6000.6 build may raise `test-framework` and `timeline` again in `manifest.json` and the lock file. If CI commits that back, the next minimum-version run will fail the same way.
+- The next 6000.0.0f1 run could still fail in a later step. The remaining packages pinned above 6000.0's bundled versions (`collab-proxy`, `visualscripting`, `ide.rider`, `ide.visualstudio`) weren't listed as errors, but they haven't actually been compiled on 6000.0.
+- I didn't raise the minimum version in the README, since the code shows no need to.
+[2026-10-12 17:02:48][INFO] ****: [MinSupported] Unity 6000.0.0f1 ビルド試行 2/5
+[2026-10-12 17:02:48][INFO] Unity 6000.0.0f1 でビルド確認を開始: D:\Projects\RogueLikeDungeon
+[2026-10-12 17:03:18][INFO] Unity 6000.0.0f1 実行中… 経過 00:00:30 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-12 17:03:48][INFO] Unity 6000.0.0f1 実行中… 経過 00:01:00 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-12 17:04:18][INFO] Unity 6000.0.0f1 実行中… 経過 00:01:30 | Start importing Packages/com.unity.collab-proxy/Editor/Assets/Images/d_iconzoomout.png using Guid(43735cb4df8a4aa49b379e83bd9d77b8) (TextureImporter)[PhysX] Ini…
+[2026-10-12 17:04:58][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:00 | Start importing Packages/com.unity.2d.animation/Editor/Assets/ComponentIcons/Animation.IKCCD@64.png using Guid(84b96a9d1862c4a59afc0fff9875bfc4) (TextureImporte…
+[2026-10-12 17:05:28][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:40 | Start importing Packages/com.unity.2d.animation/Editor/Assets/ComponentIcons/d_Animation.IKManager@128.png using Guid(eddc3b652f54848828296504ee94ec04) (Texture…
+[2026-10-12 17:05:58][INFO] Unity 6000.0.0f1 実行中… 経過 00:03:10 | Start importing Packages/com.unity.collab-proxy/Lib/Editor/Localization/plastic-gui.zh-Hans.txt using Guid(88f256f2677614287b3dcc01ebaed742) (TextScriptImporter…
+[2026-10-12 17:06:28][INFO] Unity 6000.0.0f1 実行中… 経過 00:03:40 | Start importing Packages/com.unity.collab-proxy/Editor/Assets/Layouts/SignInWithEmailPanel.uxml using Guid(0229db2477529f049aa3683cfba9d23b) (ScriptedImporter)[…
+[2026-10-12 17:06:57][INFO] Unity 6000.0.0f1 のビルド確認が終了しました (exit=0)
+[2026-10-12 17:06:57][INFO] ****: [MinSupported] ビルド成功（試行 2）
+[2026-10-12 17:06:57][INFO] ****: package.json を 0.2.0 -> 0.3.0 に更新
+warning: in the working copy of 'CHANGELOG.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Packages/packages-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ProjectSettings/ProjectVersion.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+remote: Bypassed rule violations for refs/heads/master:        
+remote: 
+remote: - Changes must be made through a pull request.        
+remote: 
+To github.com:AraiYuhki/****.git
+   48dc187..7be9ddc  master -> master
+To github.com:AraiYuhki/****.git
+ * [new tag]         v0.3.0 -> v0.3.0
+https://github.com/AraiYuhki/****/releases/tag/v0.3.0
+[2026-10-12 17:07:34][INFO] ****: リリース v0.3.0 を作成しました
+[2026-10-12 17:07:34][INFO] === ****: 完了 ===

@@ -11,5 +11,18 @@
         "tests": null
       }
     ]
+  },
+  "48dc1874f0475afab2662e3dfafa0068bd13a592": {
+    "executedAt": "2026-10-12T17:07:34.7291114+09:00",
+    "isSuccess": true,
+    "logDirectoryPath": "D:\\Projects\\RogueLikeDungeon\\.sebastian-ci\\logs\\48dc1874f0475afab2662e3dfafa0068bd13a592",
+    "jobs": [
+      {
+        "jobId": "build",
+        "status": "Success",
+        "durationSeconds": 1318.6,
+        "tests": null
+      }
+    ]
   }
 }
