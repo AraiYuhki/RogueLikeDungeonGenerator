@@ -28,4 +28,108 @@ VBCSCompiler prewarm took 23.66 ms
 [2026-10-18 14:43:19][INFO] Unity 6000.0.0f1 は既にインストール済み
 [2026-10-18 14:43:19][INFO] ****: [MinSupported] Unity 6000.0.0f1 ビルド試行 1/5
 [2026-10-18 14:43:19][INFO] Unity 6000.0.0f1 でビルド確認を開始: D:\Projects\RogueLikeDungeon
-[2026-10-18 14:43:49][INFO] Unity 6000.0.0f1 実行中… 経過 00:00:30 | [Licensing::Client] Suc
+[2026-10-18 14:43:49][INFO] Unity 6000.0.0f1 実行中… 経過 00:00:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:44:19][INFO] Unity 6000.0.0f1 実行中… 経過 00:01:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:44:49][INFO] Unity 6000.0.0f1 実行中… 経過 00:01:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:45:19][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:45:49][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:45:52][INFO] Unity 6000.0.0f1 のビルド確認が終了しました (exit=1)
+[2026-10-18 14:45:52][WARN] ****: [MinSupported] ビルド失敗（試行 1）
+[2026-10-18 14:45:52][INFO] Claude Code (Opus) による自動修正を実行中… (試行 1/5)
+[2026-10-18 14:46:23][INFO] Claude(Opus) 実行中… 経過 00:00:30
+[2026-10-18 14:46:53][INFO] Claude(Opus) 実行中… 経過 00:01:00
+[2026-10-18 14:47:23][INFO] Claude(Opus) 実行中… 経過 00:01:30
+[2026-10-18 14:47:46][INFO] Claude Code の自動修正が終了しました (exit=0)
+  [Claude] 最終出力:
+- With no direct version pinned, a future editor update has nothing to rewrite, so the same failure shouldn't keep coming back.
+**Other notes:**
+- I discarded the uncommitted `Packages/packages-lock.json` changes the **** editor had made, so the file is back to the committed version. Unity regenerates it when it resolves packages.
+- I left the update job's uncommitted files alone: `ProjectVersion.txt` (****) and `.sebastian-ci/`.
+- The minimum supported version in README.md stays at 6000.0.0f1.
+[2026-10-18 14:47:46][INFO] ****: [MinSupported] Unity 6000.0.0f1 ビルド試行 2/5
+[2026-10-18 14:47:46][INFO] Unity 6000.0.0f1 でビルド確認を開始: D:\Projects\RogueLikeDungeon
+[2026-10-18 14:48:16][INFO] Unity 6000.0.0f1 実行中… 経過 00:00:30 | Successfully changed project path to: D:\Projects\RogueLikeDungeon
+[2026-10-18 14:48:46][INFO] Unity 6000.0.0f1 実行中… 経過 00:01:00 | [Package Manager] Connected to IPC stream "Upm-19928" after 0.0 seconds.
+[2026-10-18 14:49:16][INFO] Unity 6000.0.0f1 実行中… 経過 00:01:30 | Rebuilding Library because the metadata folder could not be found!
+[2026-10-18 14:49:46][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:00 | Rebuilding Library because the metadata folder could not be found!
+[2026-10-18 14:50:16][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:30 | Rebuilding Library because the metadata folder could not be found!
+[2026-10-18 14:50:46][INFO] Unity 6000.0.0f1 実行中… 経過 00:03:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:51:16][INFO] Unity 6000.0.0f1 実行中… 経過 00:03:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:51:46][INFO] Unity 6000.0.0f1 実行中… 経過 00:04:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:52:16][INFO] Unity 6000.0.0f1 実行中… 経過 00:04:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:52:46][INFO] Unity 6000.0.0f1 実行中… 経過 00:05:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:53:16][INFO] Unity 6000.0.0f1 実行中… 経過 00:05:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:53:46][INFO] Unity 6000.0.0f1 実行中… 経過 00:06:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:54:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:06:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:54:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:07:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:55:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:07:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:55:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:08:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:56:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:08:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:56:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:09:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:57:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:09:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:57:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:10:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:58:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:10:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:58:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:11:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:59:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:11:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 14:59:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:12:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 15:00:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:12:30 | Application.AssetDatabase Initial Refresh Start
+[2026-10-18 15:00:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:13:00 | Application.AssetDatabase Initial Refresh Start
+[2026-10-18 15:01:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:13:30 | Application.AssetDatabase Initial Refresh Start
+[2026-10-18 15:01:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:14:00 | Application.AssetDatabase Initial Refresh Start
+[2026-10-18 15:02:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:14:30 | Application.AssetDatabase Initial Refresh Start
+[2026-10-18 15:02:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:15:00 | Application.AssetDatabase Initial Refresh Start
+[2026-10-18 15:03:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:15:30 | Application.AssetDatabase Initial Refresh Start
+[2026-10-18 15:03:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:16:00 | Application.AssetDatabase Initial Refresh Start
+[2026-10-18 15:04:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:16:30 | Application.AssetDatabase Initial Refresh Start
+[2026-10-18 15:04:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:17:00 | Application.AssetDatabase Initial Refresh Start
+[2026-10-18 15:05:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:17:30 | Directory monitor buffer overflow for 'Packages'Next Refresh will do full enumeration.
+[2026-10-18 15:05:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:18:00 | Directory monitor buffer overflow for 'Packages'Next Refresh will do full enumeration.
+[2026-10-18 15:06:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:18:30 | Directory monitor buffer overflow for 'Packages'Next Refresh will do full enumeration.
+[2026-10-18 15:06:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:19:00 | Directory monitor buffer overflow for 'Packages'Next Refresh will do full enumeration.
+[2026-10-18 15:07:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:19:30 | Directory monitor buffer overflow for 'Packages'Next Refresh will do full enumeration.
+[2026-10-18 15:07:47][INFO] Unity 6000.0.0f1 実行中… 経過 00:20:00 | Directory monitor buffer overflow for 'Packages'Next Refresh will do full enumeration.
+[2026-10-18 15:08:17][INFO] Unity 6000.0.0f1 実行中… 経過 00:20:30 | Directory monitor buffer overflow for 'Packages'Next Refresh will do full enumeration.
+[2026-10-18 15:08:48][INFO] Unity 6000.0.0f1 実行中… 経過 00:21:00 | Clearing Bee directory 'Library/Bee', since bee backend hash ('Library/Bee/bee_backend.info') is different, previous hash was 8961dcf597947eb25afe9a49643bdd12bf…
+[2026-10-18 15:09:18][INFO] Unity 6000.0.0f1 実行中… 経過 00:21:31 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-18 15:09:48][INFO] Unity 6000.0.0f1 実行中… 経過 00:22:01 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-18 15:10:18][INFO] Unity 6000.0.0f1 実行中… 経過 00:22:31 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-18 15:10:48][INFO] Unity 6000.0.0f1 実行中… 経過 00:23:01 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-18 15:11:18][INFO] Unity 6000.0.0f1 実行中… 経過 00:23:31 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-18 15:11:49][INFO] Unity 6000.0.0f1 実行中… 経過 00:24:01 | Start importing Packages/com.unity.2d.animation/Editor/Assets/EditorIcons/Light/Edit_Pose@2x.png using Guid(f169a69b888768d44906789625031d45) 
+[2026-10-18 15:12:19][INFO] Unity 6000.0.0f1 実行中… 経過 00:24:32 | Start importing Packages/com.unity.collab-proxy/Editor/Assets/Images/iconinfobellnotification@2x.png using Guid(830164d71b9d60c40b606822b957d10b) 
+[2026-10-18 15:12:49][INFO] Unity 6000.0.0f1 実行中… 経過 00:25:02 | Start importing Packages/com.unity.2d.animation/Editor/Assets/EditorIcons/Dark/d_Sprite_Mode@2x.png using Guid(269eee5bd0392044cb38fd13171b84f6) 
+[2026-10-18 15:13:19][INFO] Unity 6000.0.0f1 実行中… 経過 00:25:32 | Start importing Packages/com.unity.collab-proxy/Editor/Assets/Images/d_iconrepository@2x.png using Guid(36564eb85f1bdf2409df96325231cb6c) 
+[2026-10-18 15:13:50][INFO] Unity 6000.0.0f1 実行中… 経過 00:26:03 | Start importing Packages/com.unity.2d.animation/Editor/Assets/ComponentIcons/Animation.SpriteLibrary On@128.png using Guid(46e8f61d13f8b49c7b2ac6beb5788f2c) (Te…
+[2026-10-18 15:14:20][INFO] Unity 6000.0.0f1 実行中… 経過 00:26:33 | Start importing Packages/com.unity.2d.animation/Editor/Assets/ComponentIcons/Animation.SpriteLibraryManager On@32.png using Guid(4a3c64ec8ad964011aa28fb633e9b15…
+[2026-10-18 15:14:50][INFO] Unity 6000.0.0f1 実行中… 経過 00:27:03 |  -> (artifact id: 'ce744a3f0be5b6e9a902d8e1b9199ca9') in 0.0273306 seconds
+[2026-10-18 15:15:20][INFO] Unity 6000.0.0f1 実行中… 経過 00:27:33 | Start importing Packages/com.unity.collab-proxy/Editor/Assets/Styles/ProgressControlsForDialogs.uss using Guid(e05b9be8556f5ae41aa78140b83146d5) (ScriptedImport…
+[2026-10-18 15:15:50][INFO] Unity 6000.0.0f1 実行中… 経過 00:28:04 | Start importing Packages/com.unity.2d.animation/Editor/Assets/SkinningModule/WeightToolbarStyle.uss using Guid(d5088f76dafda4b48b76b33f42653e6c) (ScriptedImport…
+[2026-10-18 15:16:20][INFO] Unity 6000.0.0f1 実行中… 経過 00:28:34 | Start importing Packages/com.unity.2d.tilemap/Editor/UI/TilePaletteOverlayLight.uss using Guid(2a208840b98c7aa46a99ed3517e86d98) 
+[2026-10-18 15:16:53][INFO] Unity 6000.0.0f1 実行中… 経過 00:29:04 | Start importing Packages/com.unity.collab-proxy/Editor/Assets/Layouts/TeamEditionConfigurationWindow.uxml using Guid(26d3a583da6079145a52a8bef4beb6c5) (Scripted…
+[2026-10-18 15:17:23][INFO] Unity 6000.0.0f1 実行中… 経過 00:29:36 | Start importing Packages/com.unity.2d.animation/Editor/Assets/SkinningModule/VisibilityToolWindow.uxml using Guid(7c5cb5d0bb89666419fa44a3e64ed366) (ScriptedImp…
+[2026-10-18 15:17:53][INFO] Unity 6000.0.0f1 実行中… 経過 00:30:06 | Start importing Packages/com.unity.2d.animation/Editor/Assets/SkinningModule/WeightToolbar.uxml using Guid(ccf751df7bd10e14db670d1353e02ea0) (ScriptedImporter)[…
+[2026-10-18 15:18:23][INFO] Unity 6000.0.0f1 実行中… 経過 00:30:36 | Start importing Packages/com.unity.collab-proxy/Editor/Assets/Layouts/DownloadPlasticExeDialog.uxml using Guid(3da0c7cf51d8e4b40a5af55a4ca63e4e) (ScriptedImport…
+[2026-10-18 15:18:53][INFO] Unity 6000.0.0f1 実行中… 経過 00:31:07 |  -> (artifact id: '11e3addc9828f3321b63f03161da72e2') in 0.0067998 seconds
+[2026-10-18 15:19:23][INFO] Unity 6000.0.0f1 実行中… 経過 00:31:37 | (Filename: Assets/Scripts/Editor/ScriptImportPostProcessor.cs Line: 36)
+[2026-10-18 15:19:54][INFO] Unity 6000.0.0f1 実行中… 経過 00:32:07 | (Filename: Assets/Scripts/Editor/ScriptImportPostProcessor.cs Line: 36)
+[2026-10-18 15:20:24][INFO] Unity 6000.0.0f1 実行中… 経過 00:32:37 | (Filename: Assets/Scripts/Editor/ScriptImportPostProcessor.cs Line: 36)
+[2026-10-18 15:20:54][INFO] Unity 6000.0.0f1 実行中… 経過 00:33:07 | (Filename: Assets/Scripts/Editor/ScriptImportPostProcessor.cs Line: 36)
+[2026-10-18 15:21:24][INFO] Unity 6000.0.0f1 実行中… 経過 00:33:37 | 	UIPackageResources/StyleSheets/Default/Northstar/Palette/dark.uss
+[2026-10-18 15:21:30][INFO] Unity 6000.0.0f1 のビルド確認が終了しました (exit=0)
+[2026-10-18 15:21:30][INFO] ****: [MinSupported] ビルド成功（試行 2）
+[2026-10-18 15:21:31][INFO] ****: package.json を 0.3.0 -> 0.4.0 に更新
+warning: in the working copy of 'CHANGELOG.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Packages/packages-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ProjectSettings/ProjectVersion.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+remote: Bypassed rule violations for refs/heads/master:        
+remote: 
+remote: - Changes must be made through a pull request.        
+remote: 
+To github.com:AraiYuhki/****.git
+   7be9ddc..b826a94  master -> master
+To github.com:AraiYuhki/****.git
+ * [new tag]         v0.4.0 -> v0.4.0
+https://github.com/AraiYuhki/****/releases/tag/v0.4.0
+[2026-10-18 15:23:32][INFO] ****: リリース v0.4.0 を作成しました
+[2026-10-18 15:23:32][INFO] === ****: 完了 ===
