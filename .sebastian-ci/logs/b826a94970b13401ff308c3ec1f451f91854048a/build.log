@@ -1,0 +1,59 @@
+[2026-10-25 14:24:37][INFO] === ****: Unity **** への対応を開始 ===
+[2026-10-25 14:24:37][INFO] ****: [Latest] Unity **** ビルド試行 1/5
+[2026-10-25 14:24:37][INFO] Unity **** でビルド確認を開始: D:\Projects\RogueLikeDungeon
+VBCSCompilerPreWarmer: watching VBCSCompiler (PID 96360)
+VBCSCompilerPreWarmer: pre-warm launched (dotnet PID 141412)
+VBCSCompiler prewarm took 21.42 ms
+[2026-10-25 14:25:07][INFO] Unity **** 実行中… 経過 00:00:30 | Application.AssetDatabase Initial Refresh Start
+[2026-10-25 14:25:37][INFO] Unity **** 実行中… 経過 00:01:00 |   com.unity.ide.rider from version 3.0.38 to 3.1.0
+[2026-10-25 14:26:07][INFO] Unity **** 実行中… 経過 00:01:30 |   com.unity.ide.rider from version 3.0.38 to 3.1.0
+[2026-10-25 14:26:37][INFO] Unity **** 実行中… 経過 00:02:00 |   com.unity.ide.rider from version 3.0.38 to 3.1.0
+[2026-10-25 14:27:07][INFO] Unity **** 実行中… 経過 00:02:30 | AcceleratorClientConnectionCallback - disconnected - :0
+[2026-10-25 14:27:37][INFO] Unity **** 実行中… 経過 00:03:00 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-25 14:28:07][INFO] Unity **** 実行中… 経過 00:03:30 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-25 14:28:37][INFO] Unity **** 実行中… 経過 00:04:00 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-25 14:29:07][INFO] Unity **** 実行中… 経過 00:04:30 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-25 14:29:37][INFO] Unity **** 実行中… 経過 00:05:00 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-25 14:30:07][INFO] Unity **** 実行中… 経過 00:05:30 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-25 14:30:37][INFO] Unity **** 実行中… 経過 00:06:00 | Total cache size after purge 226735202, took 00:00:01.0887392
+[2026-10-25 14:31:08][INFO] Unity **** 実行中… 経過 00:06:30 | Begin MonoManager ReloadAssembly
+[2026-10-25 14:31:38][INFO] Unity **** 実行中… 経過 00:07:00 | Begin MonoManager ReloadAssembly
+[2026-10-25 14:32:08][INFO] Unity **** 実行中… 経過 00:07:30 | Starting new worker id: 0 with log in D:/Projects/RogueLikeDungeon/Logs/AssetImportWorkerHW0.log
+[2026-10-25 14:32:38][INFO] Unity **** 実行中… 経過 00:08:00 | Imported 'GUID: 82f78c36add1c2c4795c911a7abfb93e' -> (Import Result ID: '6abd688f733d8b1f05efce5c8cf12d90') in 0.124 seconds [static and dynamic dependencies]. …
+[2026-10-25 14:33:08][INFO] Unity **** 実行中… 経過 00:08:30 | Imported 'GUID: 9c7af1d0200fc4bbc8276e459fa2d906' -> (Import Result ID: 'd7ab1666c7b0b4eca4b64eb833fd2c04') in 0.063 seconds [static and dynamic dependencies]. …
+[2026-10-25 14:33:38][INFO] Unity **** 実行中… 経過 00:09:00 | Checking 18 assemblies for restricted APIs found 0 usage(s) in 4 ms
+[2026-10-25 14:34:08][INFO] Unity **** 実行中… 経過 00:09:30 | (Filename: Assets/Scripts/Editor/ScriptImportPostProcessor.cs Line: 36)
+[2026-10-25 14:34:38][INFO] Unity **** 実行中… 経過 00:10:01 | Lingering sessions upon destruction of worker manager
+[2026-10-25 14:34:39][INFO] Unity **** のビルド確認が終了しました (exit=0)
+[2026-10-25 14:34:39][INFO] ****: [Latest] ビルド成功（試行 1）
+[2026-10-25 14:34:39][INFO] ****: 最低対応バージョン 6000.0.0f1 でも後方互換性チェックを行います
+[2026-10-25 14:34:40][INFO] Unity 6000.0.0f1 は既にインストール済み
+[2026-10-25 14:34:40][INFO] ****: [MinSupported] Unity 6000.0.0f1 ビルド試行 1/5
+[2026-10-25 14:34:40][INFO] Unity 6000.0.0f1 でビルド確認を開始: D:\Projects\RogueLikeDungeon
+[2026-10-25 14:35:10][INFO] Unity 6000.0.0f1 実行中… 経過 00:00:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-25 14:35:40][INFO] Unity 6000.0.0f1 実行中… 経過 00:01:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-25 14:36:10][INFO] Unity 6000.0.0f1 実行中… 経過 00:01:30 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-25 14:36:40][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:00 | [Licensing::Client] Successfully resolved entitlements
+[2026-10-25 14:37:10][INFO] Unity 6000.0.0f1 実行中… 経過 00:02:30 | Application.AssetDatabase Initial Refresh Start
+[2026-10-25 14:37:40][INFO] Unity 6000.0.0f1 実行中… 経過 00:03:00 | WorkingDir: D:/Projects/RogueLikeDungeon
+[2026-10-25 14:38:10][INFO] Unity 6000.0.0f1 実行中… 経過 00:03:30 | Refreshing native plugins compatible for Editor in 3.92 ms, found 5 plugins.
+[2026-10-25 14:38:40][INFO] Unity 6000.0.0f1 実行中… 経過 00:04:00 |  -> (artifact id: '11e3addc9828f3321b63f03161da72e2') in 0.0077431 seconds
+[2026-10-25 14:38:59][INFO] Unity 6000.0.0f1 のビルド確認が終了しました (exit=0)
+[2026-10-25 14:38:59][INFO] ****: [MinSupported] ビルド成功（試行 1）
+[2026-10-25 14:38:59][INFO] ****: package.json を 0.4.0 -> 0.5.0 に更新
+warning: in the working copy of 'CHANGELOG.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Packages/manifest.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Packages/packages-lock.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'ProjectSettings/ProjectVersion.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+remote: Bypassed rule violations for refs/heads/master:        
+remote: 
+remote: - Changes must be made through a pull request.        
+remote: 
+To github.com:AraiYuhki/****.git
+   b826a94..a343710  master -> master
+To github.com:AraiYuhki/****.git
+ * [new tag]         v0.5.0 -> v0.5.0
+https://github.com/AraiYuhki/****/releases/tag/v0.5.0
+[2026-10-25 14:39:20][INFO] ****: リリース v0.5.0 を作成しました
+[2026-10-25 14:39:20][INFO] === ****: 完了 ===
