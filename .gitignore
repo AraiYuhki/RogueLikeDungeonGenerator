@@ -76,3 +76,5 @@ crashlytics-build.properties
 
 # Claude Code local settings
 .claude/
+# Sebastian CI の実行履歴(マシンごと)
+/.sebastian-ci/
